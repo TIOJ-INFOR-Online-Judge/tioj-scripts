@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import requests
 import random
@@ -6,7 +8,7 @@ from bs4 import BeautifulSoup
 from getpass import *
 
 # config
-judge_site = 'http://172.16.217.160:21080'
+judge_site = 'https://tioj.ck.tp.edu.tw/'
 # the testdata will append at the end of the testdata list
 input_suffix = '.in'
 output_suffix = '.out'
@@ -30,6 +32,7 @@ def login():
         'user[remember_me]': '1',
         'commit': 'Sign in'
     })
+
 login()
 print('Successful log in')
 

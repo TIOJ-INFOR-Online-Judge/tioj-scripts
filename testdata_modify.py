@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 """TIOJ AUTO MODIFY Testdata Script"""
 
 from __future__ import absolute_import
@@ -12,7 +15,7 @@ from bs4 import BeautifulSoup
 
 # config
 
-judge_site = 'http://judge.ioicamp.org'
+judge_site = 'https://tioj.ck.tp.edu.tw'
 input_suffix = '.in'
 output_suffix = '.out'
 filename_format = '%d%s'
@@ -22,8 +25,7 @@ filename_format = '%d%s'
 session = requests.Session()
 
 def login():
-    print('Username: edisonhello')
-    TIOJusername = 'edisonhello'
+    TIOJusername = input('Username: ')
     TIOJpassword = getpass('Password: ')
     print('logging in...')
     global session

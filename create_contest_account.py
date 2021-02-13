@@ -14,13 +14,13 @@ from bs4 import BeautifulSoup
 
 # config
 
-contest_name = 'ckcon17_' # Less than 8 char
+contest_name = 'prefix_' # Less than 8 char
 num = 1 # How many account you want to create
 image_file_path = '' # Leave blank if you don't want to upload a image
 
 # end config
 
-judge_url = 'http://tioj.ck.tp.edu.tw'
+judge_url = 'https://tioj.ck.tp.edu.tw'
 sign_up_get_url = judge_url + '/users/sign_up'
 sign_up_post_url = judge_url + '/users'
 output_file = 'account_list.csv'
@@ -39,7 +39,7 @@ except IOError as e:
     exit(0)
 
 
-with open(output_file,'a') as f:
+with open(output_file, 'a') as f:
     for _i in range(num):
         i = _i + 1
         session = requests.Session()

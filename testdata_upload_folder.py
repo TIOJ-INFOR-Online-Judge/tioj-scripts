@@ -1,4 +1,5 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 import requests
 import random
@@ -8,7 +9,7 @@ from getpass import *
 from os import listdir
 from os.path import join, isfile
 
-judge_site = 'http://172.16.217.160:21080'
+judge_site = 'https://tioj.ck.tp.edu.tw'
 
 session = requests.Session()
 def login():
