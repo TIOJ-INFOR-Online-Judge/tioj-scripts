@@ -47,21 +47,38 @@ with open(output_file, 'a') as f:
         soup = BeautifulSoup(rel.text, "html.parser")
         inputs = soup.find('form').find_all('input')
 
-        name = u'%s%02d' % (contest_name, i)
+        username = u'%s%02d' % (contest_name, i)
         password = random_string(6)
+        nickname = username
+        realname = username
+
+        while len(username) > 20:
+            answer = input(f'error: username {username} length over 20. Use first 20 ({username[:20]}) charactors? (y/n)')
+            if answer == 'y':
+                username = username[:20]
+            elif answer == 'n':
+                sys.exit(1)
+
+        if len(nickname) > 12:
+            print(f'warning: nickname {nickname} lenger over 12, use {nickname[:12]} instead')
+            nickname = nickname[:12]
+
+        if len(realname) > 12:
+            print(f'warning: realname {realname} lenger over 12, use {realname[:12]} instead')
+            realname = realname[:12]
 
 
-        f.write(u'%d,%s,%s\n' % (i, name, password))
+        f.write(u'%d,%s,%s\n' % (i, username, password))
 
         data = {
             inputs[0].attrs['name']: inputs[0].attrs['value'],
             inputs[1].attrs['name']: inputs[1].attrs['value'],
-            'user[email]': u'%s@auto.upload' % name,
-            'user[username]': name,
-            'user[nickname]': name,
+            'user[email]': u'%s@auto.upload' % username,
+            'user[username]': username,
+            'user[nickname]': nickname,
             'user[password]': password,
             'user[password_confirmation]': password,
-            'user[name]': name,
+            'user[name]': realname,
             'user[school]': 'meow',
             'user[gradyear]': '111',
             'commit': 'Sign up'
@@ -69,6 +86,7 @@ with open(output_file, 'a') as f:
         rel = session.post(sign_up_post_url, data=data)
         print(rel.status_code)
 
+        
         data['user[current_password]'] = password
         del data['user[password]']
         del data['user[password_confirmation]']
@@ -77,8 +95,8 @@ with open(output_file, 'a') as f:
         data['commit'] = 'Update'
         try:
             rel = session.post(sign_up_post_url, data=data, files={'user[avatar]':open(image_file_path, 'rb')})
+            print(rel.status_code)
         except FileNotFoundError as e:
             print(e)
 
-        print(rel.status_code)
         print('Create %d!!' % i)
