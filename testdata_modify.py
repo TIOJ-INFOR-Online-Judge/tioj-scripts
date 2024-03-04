@@ -33,8 +33,7 @@ def login():
     soup = BeautifulSoup(rel.text, "html.parser")
     inputs = soup.find('form').find_all('input')
     data = {
-        inputs[0].attrs['name']: inputs[0].attrs['value'],
-        inputs[1].attrs['name']: inputs[1].attrs['value'],
+        'authenticity_token': inputs[0].attrs['value'],
         'user[username]': TIOJusername,
         'user[password]': TIOJpassword,
         'user[remember_me]': '1',
