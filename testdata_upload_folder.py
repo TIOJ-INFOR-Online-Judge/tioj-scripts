@@ -21,8 +21,7 @@ def login():
 	soup = BeautifulSoup(rel.text, "html.parser")
 	inputs = soup.find('form').find_all('input')
 	rel = session.post(judge_site + '/users/sign_in', data = {
-		inputs[0].attrs['name']: inputs[0].attrs['value'],
-		inputs[1].attrs['name']: inputs[1].attrs['value'],
+		'authenticity_token': inputs[0].attrs['value'],
 		'user[username]': TIOJusername,
 		'user[password]': TIOJpassword,
 		'user[remember_me]': '1',
@@ -47,8 +46,7 @@ for f in files:
 	soup = BeautifulSoup(rel.text, "html.parser")
 	inputs = soup.find('form').find_all('input')
 	rel = session.post(sign_up_post_url, data = {
-		inputs[0].attrs['name']: inputs[0].attrs['value'],
-		inputs[1].attrs['name']: inputs[1].attrs['value'],
+		'authenticity_token': inputs[0].attrs['value'],
 		'testdatum[limit_attributes][time]': time_limit,
 		'testdatum[limit_attributes][memory]': memory_limit,
 		'testdatum[limit_attributes][output]': '65536',
@@ -56,7 +54,6 @@ for f in files:
 		'commit': 'Create Testdatum'
 	}, files = {
 		'testdatum[test_input]': open(f'{f}.in', 'rb'),
-		'testdatum[test_output]': open(f'{f}.out', 'rb')
+		'testdatum[test_output]': open(f'{f}.ans', 'rb')
 	})
 	print(f'Create {f}.')
-
